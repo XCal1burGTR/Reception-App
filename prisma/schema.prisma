@@ -1,0 +1,46 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id              String     @id @default(uuid())
+  name            String
+  slackWebhookUrl String?
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+  employees       Employee[]
+  visits          Visit[]
+}
+
+model Employee {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  name      String
+  password  String // Hashed
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id])
+  visits    Visit[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Visit {
+  id             String    @id @default(uuid())
+  tenantId       String
+  visitorName    String
+  visitorPhone   String
+  visitorAddress String?
+  purpose        String?
+  visitorCompany String?
+  hostEmployeeId String?
+  hostName       String?
+  checkInTime    DateTime  @default(now())
+  checkOutTime   DateTime?
+  tenant         Tenant    @relation(fields: [tenantId], references: [id])
+  host           Employee? @relation(fields: [hostEmployeeId], references: [id])
+}
