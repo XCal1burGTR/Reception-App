@@ -14,12 +14,17 @@ export default function LandingPage() {
               <img src="/Vortexis.png" alt="Vortexis Logo" className="h-8 w-8 object-contain" />
             </div>
             <span className="font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">
-              Vortexis
+              Smart Reception
             </span>
           </div>
           <div className="flex gap-4">
+            <Link href="/about">
+              <Button variant="ghost" className="text-slate-300 hover:text-white hover:bg-slate-800">
+                About Us
+              </Button>
+            </Link>
             <Link href="/auth/signin">
-              <Button variant="outline" className="border-slate-700 hover:bg-slate-800 text-slate-300 hover:text-white transition-all duration-300">
+              <Button className="bg-white text-black hover:bg-slate-200 border-0 font-medium transition-all duration-200">
                 Admin Login
               </Button>
             </Link>
@@ -43,12 +48,12 @@ export default function LandingPage() {
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
                 </span>
-                The Future of Visitor Management
+                Powered by Vortexis
               </div>
               <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-tight">
-                The Front Desk that <br />
+                Smart Reception <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-400">
-                  Runs Itself.
+                  Management System
                 </span>
               </h1>
               <p className="text-lg text-slate-400 max-w-xl leading-relaxed">
@@ -62,7 +67,7 @@ export default function LandingPage() {
                   </Button>
                 </Link>
                 <Link href="/admin">
-                  <Button size="lg" variant="outline" className="w-full sm:w-auto h-12 px-8 text-lg border-slate-700 text-slate-300 hover:bg-slate-800 hover:text-white">
+                  <Button size="lg" className="w-full sm:w-auto h-12 px-8 text-lg bg-slate-100 text-black hover:bg-slate-200 border-0 font-medium">
                     Admin Dashboard
                   </Button>
                 </Link>
@@ -224,7 +229,7 @@ export default function LandingPage() {
               </Button>
             </Link>
             <Link href="/admin">
-              <Button size="lg" variant="outline" className="h-14 px-8 text-lg border-slate-700 hover:bg-slate-800">
+              <Button size="lg" className="h-14 px-8 text-lg bg-white text-black hover:bg-slate-200 border-0">
                 Admin Login
               </Button>
             </Link>

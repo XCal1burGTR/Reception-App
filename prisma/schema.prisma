@@ -15,6 +15,20 @@ model Tenant {
   updatedAt       DateTime   @updatedAt
   employees       Employee[]
   visits          Visit[]
+  buildingId      String?
+  building        Building?  @relation(fields: [buildingId], references: [id])
+}
+
+model Building {
+  id            String   @id @default(uuid())
+  name          String
+  address       String
+  ownerName     String
+  contactNumber String
+  email         String
+  tenants       Tenant[]
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 }
 
 model Employee {

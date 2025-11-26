@@ -85,10 +85,12 @@ export async function getVisits(tenantId?: string) {
     }
 }
 
-export async function getTenants() {
+export async function getTenants(buildingId?: string) {
     try {
+        const whereClause = buildingId ? { buildingId } : {}
         const tenants = await prisma.tenant.findMany({
-            orderBy: { createdAt: 'desc' },
+            where: whereClause,
+            orderBy: { name: 'asc' },
         })
         return tenants
     } catch (error) {
@@ -169,15 +171,39 @@ export async function getAnalyticsData() {
             }
         })
 
+        // 3. Visitors by Company (Today)
+        const visitsByTenantToday = await prisma.visit.groupBy({
+            by: ['tenantId'],
+            where: {
+                checkInTime: {
+                    gte: today,
+                    lt: tomorrow,
+                },
+            },
+            _count: {
+                id: true,
+            },
+        })
+
+        const chartDataToday = visitsByTenantToday.map((item) => {
+            const tenant = tenants.find((t) => t.id === item.tenantId)
+            return {
+                name: tenant ? tenant.name : 'Unknown',
+                visits: item._count.id,
+            }
+        })
+
         return {
             visitorsToday,
             chartData,
+            chartDataToday,
         }
     } catch (error) {
         console.error('Error fetching analytics:', error)
         return {
             visitorsToday: 0,
             chartData: [],
+            chartDataToday: [],
         }
     }
 }

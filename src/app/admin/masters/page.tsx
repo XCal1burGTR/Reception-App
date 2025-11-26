@@ -23,7 +23,7 @@ export default async function MastersPage() {
                 <div className="flex justify-between items-center">
                     <div className="flex items-center gap-4">
                         <Link href="/admin">
-                            <Button variant="outline">Back to Dashboard</Button>
+                            <Button variant="outline" className="text-black bg-white hover:bg-gray-100">Back to Dashboard</Button>
                         </Link>
                         <h1 className="text-3xl font-bold">Masters Management</h1>
                     </div>
@@ -38,7 +38,10 @@ export default async function MastersPage() {
                             <CardTitle>Add New Company</CardTitle>
                         </CardHeader>
                         <CardContent>
-                            <form action={createTenant} className="space-y-4">
+                            <form action={async (formData) => {
+                                'use server'
+                                await createTenant(formData)
+                            }} className="space-y-4">
                                 <div className="space-y-2">
                                     <Label htmlFor="name">Company Name</Label>
                                     <Input id="name" name="name" placeholder="Acme Inc." required />
